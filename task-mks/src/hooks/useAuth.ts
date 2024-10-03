@@ -2,9 +2,9 @@
 
 import { dataForm } from "@/Interface/menuInterface";
 import { postDataLogin } from "@/lib/features/authenticationSlice/authenticationSlice";
-import { RootState } from "@/lib/store";
+
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 export const useAuth = () => {
   const [dataForm, setDataForm] = useState<dataForm>({

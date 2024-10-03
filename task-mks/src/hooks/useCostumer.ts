@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { postDataNewCustomer } from "@/lib/features/userSlice/userSlice";
 import React, { useState } from "react";

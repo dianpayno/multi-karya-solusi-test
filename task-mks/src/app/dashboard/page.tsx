@@ -1,11 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import ButtonAddCustomer from "@/components/ButtonAction/ButtonAddCustomer";
 import EmployeeCard from "@/components/Card/EmployeeCard";
+import StockComponents from "@/components/StockComponents/StockComponents";
 import { menuListInterface } from "@/Interface/menuInterface";
 import { getDataDetailUser } from "@/lib/features/authenticationSlice/authenticationSlice";
+import { getListAllStock } from "@/lib/features/stockSlice/stockSlice";
+import { getListTransaction } from "@/lib/features/transactionSlice/transactionSlice";
 import { getListAllUser } from "@/lib/features/userSlice/userSlice";
 import { RootState } from "@/lib/store";
-import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { IoIosPerson } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
@@ -28,12 +31,8 @@ const menuListDashboard: menuListInterface[] = [
     path: "/stock",
   },
   {
-    label: "Transaction",
+    label: "Transaction Report",
     path: "/transaction",
-  },
-  {
-    label: "Report",
-    path: "/report",
   },
 ];
 
@@ -44,7 +43,7 @@ const DashboardPage = () => {
   const { listAllUser } = useSelector((state: RootState) => state.user);
   const [activeView, setActiveView] = useState(-1);
   const dispatch = useDispatch();
-//   const router = useRouter();
+  //   const router = useRouter();
   useEffect(() => {
     const id = localStorage.getItem("id");
     if (id) {
@@ -60,6 +59,14 @@ const DashboardPage = () => {
       dispatch(getListAllUser());
     } else if (path === 2) {
       setActiveView(1);
+      dispatch(getListAllUser());
+    } else if (path === 3) {
+      setActiveView(2);
+      dispatch(getListAllStock());
+      dispatch(getListAllUser());
+    } else if (path === 4) {
+      setActiveView(3);
+      dispatch(getListTransaction());
       dispatch(getListAllUser());
     }
   };
@@ -100,22 +107,30 @@ const DashboardPage = () => {
         </div>
       </div>
       <div className="col-span-6 p-5">
-        
+        <div className="bg-white rounded-[8px] relative h-[calc(100vh-40px)] flex justify-start overflow-y-auto items-start gap-2 flex-wrap">
+          {activeView == 1 && <ButtonAddCustomer />}
 
-        <div className="bg-white rounded-[8px] relative h-[calc(100vh-40px)] p-5 flex justify-start items-start gap-2 flex-wrap">
-            {
-                activeView == 1 &&  <ButtonAddCustomer/>
-            }
-       
-          {activeView == 0
-            ? listAllUser?.dataEmployee?.map((item: any) => {
-                return <EmployeeCard key={item.id} dataList={item} />;
-              })
-            : activeView == 1 ?
+          {activeView == 0 ? (
+            listAllUser?.dataEmployee?.map((item: any) => {
+              return (
+                <div className="p-5">
+                  <EmployeeCard key={item.id} dataList={item} />
+                </div>
+              );
+            })
+          ) : activeView == 1 ? (
             listAllUser?.dataCustomers?.map((item: any) => {
-                return <EmployeeCard key={item.id} dataList={item} />;
-              })
-            :null}
+              return (
+                <div className="p-5">
+                  <EmployeeCard key={item.id} dataList={item} />
+                </div>
+              );
+            })
+          ) : activeView == 2 ? (
+            <StockComponents />
+          ) : activeView == 3 ? (
+            <StockComponents activeView={activeView} />
+          ) : null}
         </div>
       </div>
     </div>

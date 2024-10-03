@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react'
 import { IoIosPerson } from "react-icons/io";
 interface EmployeeCardInterface {

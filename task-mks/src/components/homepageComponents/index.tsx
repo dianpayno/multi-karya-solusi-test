@@ -12,7 +12,7 @@ const HomepageComponents = () => {
       <HeroSectionComponents />
       <ServiceProfileComponents/>
       <ProfileHomepageComponents />
-      <ServiceProfileComponents/>
+      {/* <ServiceProfileComponents/> */}
       <FooterComponents/>
     </div>
   );

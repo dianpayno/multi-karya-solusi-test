@@ -51,6 +51,10 @@ const NavbarComponents = () => {
       </div>
       <div className="flex gap-3 pe-20 text-[14px] justify-start items-center">
         {menuList.map((menu: menuListInterface, i: number) => {
+          const isLastIndex = i === menuList.length - 1;
+          if (isLastIndex && !isLogin) {
+            return null;
+          }
           return (
             <div key={i} className="cursor-pointer hover:text-blue-500">
               <Link href={menu.path}>{menu.label}</Link>

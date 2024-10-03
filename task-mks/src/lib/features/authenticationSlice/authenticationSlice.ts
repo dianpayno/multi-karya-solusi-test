@@ -70,7 +70,7 @@ export const authenticationSlice = createSlice({
         state.postLogin.status = "pending";
       })
       .addCase(postDataLogin.fulfilled, (state:AuthInterface, action: PayloadAction<any>) => {
-        console.log(action.payload), 'ini redux'
+       
         state.postLogin.status = "success";
         state.postLogin.data = action.payload;
       })
@@ -82,7 +82,7 @@ export const authenticationSlice = createSlice({
         state.detailUser.status = "pending";
       })
       .addCase(getDataDetailUser.fulfilled, (state:AuthInterface, action: PayloadAction<any>) => {
-        console.log(action.payload), 'ini redux'
+       
         state.detailUser.status = "success";
         state.detailUser.data = action.payload;
       })
